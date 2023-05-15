@@ -1,0 +1,55 @@
+version: '3.7'
+services: 
+  cassandra_1:
+    container_name: cassandra_1 
+    hostname: cassandra_1
+    image: cassandra:3.0
+    ports:
+      - "9042:9042"
+    networks:
+      - cassandra_net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra_cluster
+      - CASSANDRA_HOST=localhost  
+    volumes: 
+      - ./cluster-data/node1:/var/lib/cassandra
+      - ./conf/node1/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - ./conf/node1/jvm.options:/etc/cassandra/jvm.options 
+
+  cassandra_2:
+    container_name: cassandra_2
+    hostname: cassandra_2
+    image: cassandra:3.0
+    ports:
+      - "9043:9042"
+    networks:
+      - cassandra_net
+    environment: 
+      - CASSANDRA_SEEDS=cassandra_1
+      - CASSANDRA_CLUSTER_NAME=cassandra_cluster
+      - CASSANDRA_HOST=localhost
+    volumes: 
+      - ./cluster-data/node2:/var/lib/cassandra
+      - ./conf/node2/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - ./conf/node2/jvm.options:/etc/cassandra/jvm.options
+
+  cassandra_3:
+    container_name: cassandra_3
+    hostname: cassandra_3
+    image: cassandra:3.0
+    ports:
+      - "9044:9042"
+    networks:
+      - cassandra_net
+    environment: 
+      - CASSANDRA_SEEDS=cassandra_1
+      - CASSANDRA_CLUSTER_NAME=cassandra_cluster
+      - CASSANDRA_HOST=localhost
+    volumes: 
+      - ./cluster-data/node3:/var/lib/cassandra
+      - ./conf/node3/cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - ./conf/node3/jvm.options:/etc/cassandra/jvm.options 
+networks:
+  cassandra_net:
+     name: jp_net
+

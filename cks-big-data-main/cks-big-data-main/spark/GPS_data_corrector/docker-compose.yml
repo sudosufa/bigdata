@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  spark_strc:
+    image: spark_filter:1.0
+    container_name: spark_filter
+    ports:
+      - "20215:4040"
+    networks:
+      - spark_sub_net
+    environment:
+      - "SPARK_MASTER=spark://51.89.43.61:20213"
+      - "JAR_CLASS=Filter"
+      - "JAR=/Filter2.jar"
+      - "ARGS=999396 2020 7 2020-07-01 2020-07-31 0.7 0.7 0.7"
+    volumes:
+       - /home/jpandco/dev/docker-apps/spark-cluster/apps:/opt/spark-apps
+       - /home/jpandco/dev/docker-apps/spark-cluster/data:/opt/spark-data
+       - /home/jpandco/dev/docker-apps/spark-cluster/conf:/spark/conf 
+       - /home/jpandco/dev/docker-apps/spark-cluster/Filter/output:/opt/spark-data-filter
+    command: "/start-sub.sh"
+
+networks:
+  spark_sub_net:
+    name: global_net

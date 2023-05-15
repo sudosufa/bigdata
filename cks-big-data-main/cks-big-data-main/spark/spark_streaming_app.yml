@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  jp_stream:
+    image: jp_stream:3.0.2
+    container_name: jp_stream
+    ports:
+      - "20215:4040"
+    networks:
+      - jp_stream_net
+    environment:
+      - "SPARK_MASTER=spark://51.89.43.61:20213"
+      - "JAR_CLASS=App"
+      - "JAR=/spark_structured_streaming.jar"
+      - "CORES=1"
+      - "MEMORY=2G"
+    env_file: 
+      - ./.env
+    volumes:
+       - /home/jpandco/dev/docker-apps/spark-cluster/apps:/opt/spark-apps
+       - /home/jpandco/dev/docker-apps/spark-cluster/data:/opt/spark-data
+       - /home/jpandco/dev/docker-apps/spark-cluster/conf:/spark/conf 
+    command: "/start-sub2.sh"
+   
+networks:
+  jp_stream_net:
+    name: jp_net

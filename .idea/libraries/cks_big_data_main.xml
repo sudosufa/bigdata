@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="cks-big-data-main">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/cks-big-data-main/cks-big-data-main" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/cks-big-data-main/cks-big-data-main/spark/alerts_checker/src/main/java" />
+      <root url="file://$PROJECT_DIR$/cks-big-data-main/cks-big-data-main/spark/spark_streaming_filter/src/main/java" />
+      <root url="file://$PROJECT_DIR$/cks-big-data-main/cks-big-data-main/spark/spark_structured_streaming_filter/src/main/java" />
+      <root url="file://$PROJECT_DIR$/cks-big-data-main/cks-big-data-main/spark/spark_summry/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

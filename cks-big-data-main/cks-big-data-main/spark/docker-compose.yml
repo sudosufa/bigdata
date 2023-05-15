@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  spark-master:
+    image: spark:latest
+    container_name: spark_master
+    hostname: spark-master
+    ports:
+      - "28080:8080"
+      - "27077:7077"
+    networks:
+      - spark_net
+    environment:
+      - "SPARK_LOCAL_IP=spark-master"
+      - "SPARK_MASTER_PORT=7077"
+      - "SPARK_MASTER_WEBUI_PORT=8080"
+      - "SPARK_MASTER_LOG=/spark/logs"
+    volumes:
+      - ./docker-apps/apps:/opt/spark-apps
+      - ./docker-apps/data:/opt/spark-data
+      - ./spark-config:/spark/conf
+    command: "/start-master.sh"
+
+  spark-worker:
+    image: spark:latest
+    # container_name: spark_worker # remove this line
+    hostname: spark_worker
+    depends_on:
+      - spark-master
+    networks:
+      - spark_net
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_WORKER_WEBUI_PORT=8081"
+      - "SPARK_WORKER_LOG=/spark/logs"
+      - "SPARK_WORKER_CORES=1"
+      - "SPARK_WORKER_MEMORY=1G"
+    volumes:
+      - ./docker-apps/apps:/opt/spark-apps
+      - ./docker-apps/data:/opt/spark-data
+      - ./spark-config:/spark/conf
+    command: "/start-worker.sh"
+
+networks:
+  spark_net:
+    name: jp_net

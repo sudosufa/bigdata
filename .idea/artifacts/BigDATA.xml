@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jpackage" name="BigDATA">
+    <output-path>$PROJECT_DIR$/out/artifacts/BigDATA</output-path>
+    <root id="root">
+      <element id="archive" name="BigDATA.jar">
+        <element id="module-output" name="BigDATA" />
+      </element>
+    </root>
+  </artifact>
+</component>
